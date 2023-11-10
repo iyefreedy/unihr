@@ -1,8 +1,4 @@
-<template>
-    <div>
-        <h1>Dashboard</h1>
-    </div>
-</template>
+<template></template>
 
 <script lang="ts" setup></script>
 
