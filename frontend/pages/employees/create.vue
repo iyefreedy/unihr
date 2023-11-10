@@ -1,83 +1,287 @@
 <template>
-  <UCard>
-    <template #header>
-      <div class="flex items-center">
-        <UButton icon="i-mdi-arrow-left" class="mr-4" @click="router.back()" />
-        <span>Add new employee</span>
-      </div>
-    </template>
+    <UCard>
+        <template #header>
+            <div class="flex items-center">
+                <UButton
+                    icon="i-mdi-arrow-left"
+                    class="mr-4"
+                    variant="ghost"
+                    @click="router.back()"
+                />
+                <span>Add new employee</span>
+            </div>
+        </template>
 
-    <div>
-      <Stepper :steps="steps" />
-      <div class="flex flex-wrap">
-        <div class="p-4 flex-[0_0_auto] w-full">
-          <label for="nipField">NIP</label>
-          <UInput id="nipField" v-model="form.nip" disabled placeholder="00.00.0.0.0000" />
-        </div>
+        <div>
+            <Stepper
+                :steps="steps"
+                :current-step="currentStep"
+                @change="changeStep"
+            />
 
-        <div class="p-4 flex-[0_0_auto] w-full">
-          <label for="nameField">Name</label>
-          <UInput id="nameField" v-model="form.name" placeholder="John Doe" />
-        </div>
-      </div>
+            <template v-if="currentStep === 0">
+                <!-- Row 1 -->
+                <div class="flex flex-wrap">
+                    <div class="px-4 py-2 flex-[0_0_auto] w-full">
+                        <UFormGroup label="Name" required>
+                            <UInput
+                                v-model="form.name"
+                                placeholder="John Doe"
+                            />
+                        </UFormGroup>
+                    </div>
+                </div>
 
-      <div class="flex flex-wrap">
-        <div class="p-4 flex-[0_0_auto] w-full md:w-1/2">
-          <label for="birthDateField">Birth Date</label>
-          <!-- <UInput type="date" id="birthDateField" v-model="form.birthDate" placeholder="1970-12-31" /> -->
-          <UPopover :popper="{ placement: 'bottom-start' }">
-            <UButton icon="i-heroicons-calendar-days-20-solid" :label="label" class="w-full" variant="outline"
-              color="gray" />
+                <!-- Row 2 -->
+                <div class="flex flex-wrap">
+                    <div class="px-4 py-2 flex-[0_0_auto] w-full">
+                        <UFormGroup label="Email" required>
+                            <UInput
+                                type="email"
+                                v-model="form.email"
+                                placeholder="john.doe@example.com"
+                            />
+                        </UFormGroup>
+                    </div>
+                </div>
 
-            <template #panel="{ close }">
-              <LazyDatePicker v-model="date" @close="close" />
+                <!-- Row 3 -->
+                <div class="flex flex-wrap">
+                    <div class="px-4 py-2 flex-[0_0_auto] w-full md:w-1/2">
+                        <UFormGroup label="Mobile phone">
+                            <UInput
+                                type="phone"
+                                v-model="form.birthPlace"
+                                placeholder="E.g: +6289811223344"
+                            />
+                        </UFormGroup>
+                    </div>
+
+                    <div class="px-4 py-2 flex-[0_0_auto] w-full md:w-1/2">
+                        <UFormGroup label="Phone">
+                            <UInput
+                                id="birthPlaceField"
+                                v-model="form.birthPlace"
+                                placeholder="E.g: +622183616766"
+                            />
+                        </UFormGroup>
+                    </div>
+                </div>
+
+                <!-- Row 4 -->
+                <div class="flex flex-wrap">
+                    <div class="px-4 py-2 flex-[0_0_auto] w-full md:w-1/2">
+                        <UFormGroup label="Birth Date" required>
+                            <UInput type="date" v-model="form.birthDate" />
+                        </UFormGroup>
+                    </div>
+
+                    <div class="px-4 py-2 flex-[0_0_auto] w-full md:w-1/2">
+                        <label for="birthPlaceField" class="text-sm"
+                            >Birth Place</label
+                        >
+                        <UInput
+                            id="birthPlaceField"
+                            v-model="form.birthPlace"
+                            placeholder="E.g: Bogor"
+                        />
+                    </div>
+                </div>
+
+                <!-- Row 5 -->
+                <div class="flex flex-wrap">
+                    <div class="px-4 py-2 flex-[0_0_auto] w-full md:w-1/2">
+                        <UFormGroup label="Gender" name="gender">
+                            <URadio
+                                v-for="option in genderOptions"
+                                :key="option.value"
+                                v-model="form.gender"
+                                v-bind="option"
+                                class="inline-flex last:ml-8"
+                            >
+                                {{ option.label }}
+                            </URadio>
+                        </UFormGroup>
+                    </div>
+
+                    <div class="px-4 py-2 flex-[0_0_auto] w-full md:w-1/2">
+                        <UFormGroup label="Marital status" required>
+                            <USelect
+                                placeholder="Select status"
+                                :options="maritalStatusOptions"
+                                v-model="form.marital_status"
+                            />
+                        </UFormGroup>
+                    </div>
+                </div>
+
+                <!-- Row 6 -->
+                <div class="flex flex-wrap">
+                    <div class="px-4 py-2 flex-[0_0_auto] w-full md:w-1/2">
+                        <UFormGroup label="Blood type" name="blood_type">
+                            <USelect
+                                placeholder="Select blood type"
+                                :options="['A', 'B', 'AB', 'O']"
+                                v-model="form.blood_type"
+                            />
+                        </UFormGroup>
+                    </div>
+
+                    <div class="px-4 py-2 flex-[0_0_auto] w-full md:w-1/2">
+                        <UFormGroup label="Religion" required>
+                            <USelect
+                                placeholder="Select religion"
+                                :options="religionOptions"
+                                v-model="form.religion"
+                            />
+                        </UFormGroup>
+                    </div>
+                </div>
             </template>
-          </UPopover>
+
+            <template v-else-if="currentStep === 1">
+                <h1>Education Infomation</h1>
+            </template>
+            <template v-else-if="currentStep === 2">
+                <h1>Education Infomation</h1>
+            </template>
+            <template v-else-if="currentStep === 3">
+                <h1>Education Infomation</h1>
+            </template>
+
+            <div class="ml-auto p-4">
+                <template v-if="currentStep === steps.length - 1">
+                    <UButton
+                        label="Submit"
+                        block
+                        icon="i-mdi-check"
+                        trailing
+                        @click="console.log('Submit')"
+                    />
+                </template>
+                <template v-else>
+                    <UButton
+                        label="Next"
+                        block
+                        icon="i-mdi-arrow-right"
+                        trailing
+                        @click="nextStep"
+                    />
+                </template>
+            </div>
         </div>
-
-        <div class="p-4 flex-[0_0_auto] w-full md:w-1/2">
-          <label for="birthPlaceField">Birth Place</label>
-          <UInput id="birthPlaceField" v-model="form.birthPlace" placeholder="E.g: Bogor, Jakarta" />
-        </div>
-      </div>
-
-
-    </div>
-
-  </UCard>
+    </UCard>
 </template>
 
 <script lang="ts" setup>
-const router = useRouter()
-const date = ref(new Date())
-const label = computed(() => date.value.toLocaleDateString('en-us', { year: 'numeric', month: 'long', day: 'numeric' })
-)
+const router = useRouter();
+
+const currentDate = ref<Date>(new Date());
+const birthDatelabel = computed(() =>
+    currentDate.value?.toLocaleDateString("en-us", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+    })
+);
+
+const genderOptions = [
+    {
+        label: "Male",
+        value: "male",
+    },
+    {
+        label: "Female",
+        value: "female",
+    },
+];
+
+const maritalStatusOptions = [
+    {
+        label: "Single",
+        value: "single",
+    },
+    {
+        label: "Married",
+        value: "married",
+    },
+    {
+        label: "Widow",
+        value: "widow",
+    },
+    {
+        label: "Widower",
+        value: "widower",
+    },
+];
+
+const religionOptions = [
+    {
+        label: "Islam",
+        value: "islam",
+    },
+    {
+        label: "Christian",
+        value: "christian",
+    },
+    {
+        label: "Buddha",
+        value: "buddha",
+    },
+    {
+        label: "Hindu",
+        value: "hindu",
+    },
+];
+
 const form = reactive({
-  nip: '18.00.0.0.0031',
-  name: '',
-  birthDate: date.value,
-  birthPlace: '',
-})
+    name: "",
+    email: "",
+    birthDate: "",
+    birthPlace: "",
+    gender: undefined,
+    marital_status: undefined,
+    blood_type: undefined,
+    religion: undefined,
+});
+
+const disabledNextStep = computed(() => {
+    switch (currentStep.value) {
+        case 0:
+            return;
+    }
+});
 
 const steps = [
-  {
-    id: 1,
-    title: 'Personal Information',
-  },
-  {
-    id: 2,
-    title: 'Education Information',
-  },
-  {
-    id: 3,
-    title: 'Job Information',
-  },
-  {
-    id: 4,
-    title: 'Family Information',
-  },
+    {
+        label: "Personal Information",
+        icon: "i-mdi-card-account-details",
+    },
+    {
+        label: "Education Information",
+        icon: "i-mdi-account-school",
+    },
+    {
+        label: "Job Information",
+        icon: "i-mdi-account-tie",
+    },
+    {
+        label: "Family Information",
+        icon: "i-mdi-account-group",
+    },
 ];
+
+const currentStep = ref(0);
+
+const changeStep = (index: number) => {
+    currentStep.value = index;
+};
+
+const nextStep = () => {
+    if (!form.name) return;
+    const nextStep = currentStep.value + 1;
+    changeStep(nextStep);
+};
 </script>
 
 <style></style>
-
