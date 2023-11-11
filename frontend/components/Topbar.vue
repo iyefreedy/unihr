@@ -1,6 +1,6 @@
 <template>
     <header
-        class="fixed z-50 h-[70px] w-full flex items-center justify-between px-6 py-2 bg-white shadow md:justify-start dark:bg-gray-900"
+        class="fixed z-40 h-[70px] w-full flex items-center justify-between px-6 py-2 bg-white shadow md:justify-start dark:bg-gray-900"
     >
         <NuxtLink to="/" class="w-[200px] hidden md:flex items-center">
             <img src="~/assets/images/logo.png" alt="logo" width="50" />
