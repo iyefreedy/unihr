@@ -4,7 +4,7 @@
 
         <aside
             id="sidebar"
-            class="fixed top-0 left-0 z-30 h-screen w-[270px] py-4 px-6 bg-white rounded-tr-xl rounded-br-xl transition-[transform,_left] lg:top-24 lg:rounded-xl lg:h-[calc(100vh_-_8rem)] dark:bg-gray-900"
+            class="fixed top-0 left-0 z-50 h-screen w-[270px] py-4 px-6 bg-white rounded-tr-xl rounded-br-xl transition-[transform,_left] lg:top-24 lg:rounded-xl lg:h-[calc(100vh_-_8rem)] dark:bg-gray-900"
             :class="sidebarContainerClass"
         >
             <Sidebar />

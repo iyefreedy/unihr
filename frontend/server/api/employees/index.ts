@@ -1,3 +1,5 @@
+import { number } from "joi";
+
 export default defineEventHandler((event) => {
     const employees = [
         {
@@ -5,7 +7,7 @@ export default defineEventHandler((event) => {
             nip: "10.0.0.0031",
             name: "Muhammad Quraisy",
             organization: "Pusat Komputer dan Inovasi Digital",
-            gender: { value: "male", class: "text-center" },
+            gender: "male",
             status: "probation",
         },
         {
@@ -13,7 +15,7 @@ export default defineEventHandler((event) => {
             nip: "10.0.0.0031",
             name: "Guntur Ginanjar",
             organization: "Direktorat Sumber Daya Manusia",
-            gender: { value: "male", class: "text-center" },
+            gender: "male",
             status: "permanent",
         },
         {
@@ -21,7 +23,7 @@ export default defineEventHandler((event) => {
             nip: "10.0.0.0031",
             name: "Umar",
             organization: "Direktorat Keuangan",
-            gender: { value: "male", class: "text-center" },
+            gender: "male",
             status: "permanent",
         },
         {
@@ -29,7 +31,7 @@ export default defineEventHandler((event) => {
             nip: "10.0.0.0031",
             name: "Agus Wahyu Setiawan",
             organization: "Direktorat Administrasi dan Fasilitas Akademik",
-            gender: { value: "male", class: "text-center" },
+            gender: "male",
             status: "permanent",
         },
         {
@@ -37,7 +39,7 @@ export default defineEventHandler((event) => {
             nip: "10.0.0.0031",
             name: "Dita Jauza",
             organization: "Pusat Komputer dan Inovasi Digital",
-            gender: { value: "female", class: "text-center" },
+            gender: "female",
             status: "permanent",
         },
         {
@@ -45,7 +47,7 @@ export default defineEventHandler((event) => {
             nip: "10.0.0.0031",
             name: "Muhammad Irfan Hidayat",
             organization: "Pusat Komputer dan Inovasi Digital",
-            gender: { value: "male", class: "text-center" },
+            gender: "male",
             status: "permanent",
         },
         {
@@ -53,7 +55,7 @@ export default defineEventHandler((event) => {
             nip: "10.0.0.0031",
             name: "Nurfadilah",
             organization: "Direktorat Sumber Daya Manusia",
-            gender: { value: "male", class: "text-center" },
+            gender: "male",
             status: "permanent",
         },
         {
@@ -61,7 +63,7 @@ export default defineEventHandler((event) => {
             nip: "10.0.0.0031",
             name: "Asep Maksum",
             organization: "Direktorat Keuangan",
-            gender: { value: "male", class: "text-center" },
+            gender: "male",
             status: "permanent",
         },
         {
@@ -69,24 +71,23 @@ export default defineEventHandler((event) => {
             nip: "10.0.0.0031",
             name: "Meldini Alivia",
             organization: "Direktorat Administrasi dan Fasilitas Akademik",
-            gender: { value: "female", class: "text-center" },
+            gender: "female",
             status: "leave",
         },
     ];
 
-    const query = getQuery(event);
+    const {
+        q,
+        _limit,
+        _page,
+    }: {
+        q: string | undefined;
+        _limit: number ;
+        _page: number | undefined;
+    } = getQuery(event);
 
-    if (query.q) {
-        const q = query.q;
-        console.info(q);
-        return employees.filter((employee) => {
-            return Object.values(employee).some((value) => {
-                return String(value)
-                    .toLowerCase()
-                    .includes(q.toString().toLowerCase());
-            });
-        });
-    }
+    const offset = (_limit ?? 0) * (_page ?? 0) - _limit;
+    console.log(q, _limit, _page, offset);
 
-    return [...employees];
+    return [...employees].slice(offset, _limit);
 });

@@ -4,16 +4,16 @@
             <template v-for="(item, index) in steps" :key="item.id">
                 <li class="step-item">
                     <UButton
-                        :icon="item.icon"
+                        :icon="currentStep > index ? 'i-mdi-check' : item.icon"
                         :disabled="index > currentStep"
                         size="xl"
-                        class="peer z-10 disabled:text-slate-400 disabled:bg-white disabled:border"
+                        class="peer z-10 disabled:bg-opacity-100 disabled:opacity-100 disabled:bg-gray-100 disabled:text-slate-600 dark:disabled:bg-gray-900 dark:disabled:text-sky-400 dark:disabled:border dark:disabled:border-sky-400"
                         variant="solid"
-                        :ui="{ rounded: 'rounded-full bg-white' }"
+                        :ui="{ rounded: 'rounded-full' }"
                         @click="onStepClicked(index)"
                     />
                     <span
-                        class="text-xs text-center md:text-sm peer-disabled:text-slate-400"
+                        class="mt-2 text-[10px] text-center md:text-xs lg:text-sm peer-disabled:text-slate-400 text-ellipsis"
                     >
                         {{ item.label }}
                     </span>
@@ -45,7 +45,7 @@ const onStepClicked = (index: number) => {
 
 <style lang="postcss" scoped>
 .step-wrapper {
-    @apply flex justify-between p-3 mb-5;
+    @apply flex justify-between mb-5;
 }
 
 .step-item {

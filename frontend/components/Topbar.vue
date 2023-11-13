@@ -125,6 +125,7 @@
 <script lang="ts" setup>
 const { onMenuToggle, isSidebarActive } = useLayout();
 const colorMode = useColorMode();
+const router = useRouter();
 
 const outsideNotificationClickListener = ref<EventListener | null>(null);
 const outsideAdminClickListener = ref<EventListener | null>(null);
@@ -227,6 +228,7 @@ const userItems = [
             avatar: {
                 src: "https://avatars.githubusercontent.com/u/739984?v=4",
             },
+            click: () => router.push("/profile"),
         },
         {
             label: "Settings",
