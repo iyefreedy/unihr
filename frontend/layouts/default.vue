@@ -19,6 +19,11 @@
                 <slot />
             </div>
         </main>
+
+        <div
+            :class="layoutMaskClass"
+            class="fixed top-0 left-0 right-0 w-full h-full transition-colors"
+        ></div>
     </div>
 </template>
 
@@ -49,6 +54,12 @@ const mainContainerClass = computed(() => {
     return {
         "lg:ml-0": layoutState.staticMenuDesktopInactive.value,
         "lg:ml-[270px]": !layoutState.staticMenuDesktopInactive.value,
+    };
+});
+
+const layoutMaskClass = computed(() => {
+    return {
+        "bg-black bg-opacity-40": layoutState.staticMenuMobileActive.value,
     };
 });
 
