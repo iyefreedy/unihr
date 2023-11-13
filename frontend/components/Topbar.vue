@@ -1,49 +1,27 @@
 <template>
     <header
-        class="fixed z-40 h-[70px] w-full flex items-center justify-between px-6 py-2 bg-white shadow md:justify-start dark:bg-gray-900"
-    >
+        class="fixed z-40 h-[70px] w-full flex items-center justify-between px-6 py-2 bg-white shadow md:justify-start dark:bg-gray-900">
         <NuxtLink to="/" class="w-[200px] hidden md:flex items-center">
             <img src="~/assets/images/logo.png" alt="logo" width="50" />
             <span class="text-lg font-medium ml-2">UniHR</span>
         </NuxtLink>
 
-        <UButton
-            id="sidebarToggler"
-            icon="i-mdi-menu"
-            @click="onMenuToggle"
-            size="lg"
-            variant="ghost"
-            :ui="{ rounded: 'rounded-full' }"
-        />
+        <UButton id="sidebarToggler" icon="i-mdi-menu" @click="onMenuToggle" size="lg" variant="ghost"
+            :ui="{ rounded: 'rounded-full' }" />
 
         <ul class="flex items-center ml-auto gap-2">
             <li class="relative">
-                <UButton
-                    id="notificationMenu"
-                    icon="i-mdi-bell"
-                    variant="ghost"
-                    :ui="{ rounded: 'rounded-full' }"
-                    @click="notificationOpen = !notificationOpen"
-                />
+                <UButton id="notificationMenu" icon="i-mdi-bell" variant="ghost" :ui="{ rounded: 'rounded-full' }"
+                    @click="notificationOpen = !notificationOpen" />
 
                 <Transition>
-                    <div
-                        v-if="notificationOpen"
-                        class="absolute top-10 right-0 z-20 group min-w-[240px]"
-                    >
+                    <div v-if="notificationOpen" class="absolute top-10 right-0 z-20 group min-w-[240px]">
                         <div
-                            class="p-4 bg-white shadow-lg rounded-md ring-1 ring-gray-200 dark:bg-gray-900 dark:ring-gray-800"
-                        >
+                            class="p-4 bg-white shadow-lg rounded-md ring-1 ring-gray-200 dark:bg-gray-900 dark:ring-gray-800">
                             <div class="grid grid-cols-3 gap-4">
                                 <template v-for="item in adminItems">
-                                    <div
-                                        class="flex flex-col items-center justify-center"
-                                    >
-                                        <UButton
-                                            :icon="item.icon"
-                                            size="lg"
-                                            :to="item.to"
-                                        />
+                                    <div class="flex flex-col items-center justify-center">
+                                        <UButton :icon="item.icon" size="lg" :to="item.to" />
                                         <span class="text-[10px]">{{
                                             item.label
                                         }}</span>
@@ -56,45 +34,27 @@
             </li>
 
             <li>
-                <UButton
-                    :icon="
-                        isDark
-                            ? 'i-ic-baseline-light-mode'
-                            : 'i-ic-baseline-dark-mode'
-                    "
-                    variant="ghost"
-                    :ui="{ rounded: 'rounded-full' }"
-                    @click="isDark = !isDark"
-                />
+                <UButton :icon="isDark
+                    ? 'i-ic-baseline-light-mode'
+                    : 'i-ic-baseline-dark-mode'
+                    " variant="ghost" :ui="{ rounded: 'rounded-full' }" @click="isDark = !isDark" />
             </li>
 
             <li class="relative">
-                <UButton
-                    id="adminMenu"
-                    icon="i-mdi-apps"
-                    variant="ghost"
-                    :ui="{ rounded: 'rounded-full' }"
-                    @click="adminOpen = !adminOpen"
-                />
+                <UButton id="adminMenu" icon="i-mdi-apps" variant="ghost" :ui="{ rounded: 'rounded-full' }"
+                    @click="adminOpen = !adminOpen" />
 
                 <Transition>
-                    <div
-                        v-if="adminOpen"
-                        class="absolute top-10 right-0 z-20 group min-w-[240px]"
-                    >
+                    <div v-show="adminOpen" class="absolute top-10 right-0 z-20 group min-w-[240px]">
                         <div
-                            class="p-4 bg-white shadow-lg rounded-md ring-1 ring-gray-200 dark:bg-gray-900 dark:ring-gray-800"
-                        >
+                            class="p-4 bg-white shadow-lg rounded-md ring-1 ring-gray-200 dark:bg-gray-900 dark:ring-gray-800">
                             <div class="grid grid-cols-3 gap-4">
                                 <template v-for="item in adminItems">
-                                    <NuxtLink
-                                        :to="item.to"
-                                        class="flex flex-col items-center justify-center"
-                                    >
+                                    <NuxtLink :to="item.to" class="flex flex-col items-center justify-center">
                                         <UButton :icon="item.icon" />
-                                        <span class="text-[10px]">{{
-                                            item.label
-                                        }}</span>
+                                        <span class="text-[10px]">
+                                            {{ item.label }}
+                                        </span>
                                     </NuxtLink>
                                 </template>
                             </div>
@@ -104,17 +64,10 @@
             </li>
 
             <li>
-                <UDropdown
-                    :items="userItems"
-                    :popper="{ placement: 'bottom-end' }"
-                >
+                <UDropdown :items="userItems" :popper="{ placement: 'bottom-end' }">
                     <button
-                        class="h-8 w-8 flex items-center justify-center ml-3 rounded-full transition-shadow focus:outline-none focus:ring focus:ring-sky-600 focus:ring-opacity-70 overflow-hidden"
-                    >
-                        <img
-                            src="https://picsum.photos/id/83/300/320"
-                            alt="user"
-                        />
+                        class="h-8 w-8 flex items-center justify-center ml-3 rounded-full transition-shadow focus:outline-none focus:ring focus:ring-sky-600 focus:ring-opacity-70 overflow-hidden">
+                        <img src="https://picsum.photos/id/83/300/320" alt="user" />
                     </button>
                 </UDropdown>
             </li>

@@ -4,25 +4,17 @@
             <h6 class="font-semibold text-sm mb-2">Home</h6>
             <ul class="ml-3">
                 <li>
-                    <NuxtLink
-                        to="/dashboard"
-                        class="flex items-center p-1 text-sm"
-                    >
+                    <NuxtLink to="/dashboard" class="flex items-center p-1 text-sm">
                         <UIcon name="i-mdi-view-dashboard" />
                         <span class="ml-2">Dashboard</span>
                     </NuxtLink>
                 </li>
+
                 <li>
-                    <NuxtLink href="#" class="flex items-center p-1 text-sm">
-                        <UIcon name="i-mdi-account" />
-                        <span class="ml-2">My Profile</span>
-                    </NuxtLink>
-                </li>
-                <li>
-                    <a href="#" class="flex items-center p-1 text-sm">
+                    <NuxtLink to="/my-team" href="#" class="flex items-center p-1 text-sm">
                         <UIcon name="i-mdi-account-group" />
                         <span class="ml-2">My Team</span>
-                    </a>
+                    </NuxtLink>
                 </li>
             </ul>
         </li>
