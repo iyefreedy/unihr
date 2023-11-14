@@ -20,10 +20,7 @@
             </div>
         </main>
 
-        <div
-            :class="layoutMaskClass"
-            class="fixed top-0 left-0 right-0 w-full h-full transition-colors"
-        ></div>
+        <div :class="layoutMaskClass" class="transition-colors"></div>
     </div>
 </template>
 
@@ -59,7 +56,8 @@ const mainContainerClass = computed(() => {
 
 const layoutMaskClass = computed(() => {
     return {
-        "bg-black bg-opacity-40": layoutState.staticMenuMobileActive.value,
+        "bg-black bg-opacity-40 fixed z-[30] top-0 left-0 right-0 w-full h-full":
+            layoutState.staticMenuMobileActive.value,
     };
 });
 

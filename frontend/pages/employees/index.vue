@@ -3,96 +3,176 @@
         <template #header>
             <div class="flex items-center justify-between gap-2">
                 <div>
-                    <h1 class="font-medium mb-2">Employees</h1>
+                    <h1 class="font-medium mb-2 text-sm">Employees</h1>
+                    <p class="text-xs text-gray-600">
+                        Lorem ipsum, dolor sit amet consectetur adipisicing
+                        elit. Fuga ipsum quod, corporis explicabo minima
+                        dignissimos?
+                    </p>
                 </div>
 
-                <UButton label="Add Employees" trailing-icon="i-mdi-account-plus" to="/employees/create" />
+                <UButton
+                    size="xs"
+                    label="Add Employees"
+                    trailing-icon="i-mdi-account-plus"
+                    to="/employees/create"
+                />
             </div>
         </template>
         <!-- Filters -->
         <div class="flex items-center justify-between gap-3 px-4 py-3">
-            <UInput v-model="search" icon="i-heroicons-magnifying-glass-20-solid" placeholder="Search..." />
+            <UInput
+                v-model="search"
+                icon="i-heroicons-magnifying-glass-20-solid"
+                placeholder="Search..."
+            />
 
-            <USelectMenu multiple :options="todoStatus" v-model="selectedStatus" placeholder="Select status..."
-                class="w-40" />
+            <USelectMenu
+                multiple
+                :options="todoStatus"
+                v-model="selectedStatus"
+                placeholder="Status"
+                class="w-40"
+            />
         </div>
 
         <!-- Header and Action buttons -->
         <div class="flex justify-between items-center w-full px-4 py-3">
             <div class="flex items-center gap-1.5">
-                <span class="text-sm leading-5">Rows per page:</span>
+                <span class="hidden text-sm leading-5 md:inline"
+                    >Rows per page:</span
+                >
 
-                <USelect v-model="pageCount" :options="[3, 5, 10, 20, 30, 40]" class="me-2 w-20" size="xs" />
+                <USelect
+                    v-model="pageCount"
+                    :options="[5, 10, 25, 50]"
+                    class="me-2 w-20"
+                    size="xs"
+                />
             </div>
 
             <div class="flex gap-1.5 items-center">
-                <UDropdown v-if="selected.length > 1" :items="actions" :ui="{ width: 'w-36' }">
-                    <UButton icon="i-heroicons-chevron-down" trailing color="gray" size="xs">
+                <UDropdown
+                    v-if="selected.length > 1"
+                    :items="actions"
+                    :ui="{ width: 'w-36' }"
+                >
+                    <UButton
+                        icon="i-heroicons-chevron-down"
+                        trailing
+                        color="gray"
+                        size="xs"
+                    >
                         Mark as
                     </UButton>
                 </UDropdown>
 
-                <USelectMenu v-model="selectedColumns" :options="columns" multiple>
-                    <UButton icon="i-heroicons-view-columns" color="gray" size="xs">
+                <USelectMenu
+                    v-model="selectedColumns"
+                    :options="columns"
+                    multiple
+                >
+                    <UButton
+                        icon="i-heroicons-view-columns"
+                        color="gray"
+                        size="xs"
+                    >
                         Columns
                     </UButton>
                 </USelectMenu>
 
-                <UButton icon="i-heroicons-funnel" color="gray" size="xs"
-                    :disabled="search === '' && selectedStatus.length === 0" @click="resetFilters">
+                <UButton
+                    icon="i-heroicons-funnel"
+                    color="gray"
+                    size="xs"
+                    :disabled="search === '' && selectedStatus.length === 0"
+                    @click="resetFilters"
+                >
                     Reset
                 </UButton>
             </div>
         </div>
 
         <div>
-            <UTable :rows="employees" :columns="[additionalColumns[0], ...columnsTable, additionalColumns[1]]"
-                :loading="pending" v-model="selected">
-
+            <UTable
+                :rows="employees"
+                :columns="[
+                    additionalColumns[0],
+                    ...columnsTable,
+                    additionalColumns[1],
+                ]"
+                :loading="pending"
+                v-model="selected"
+            >
                 <template #image-data>
-                    <UAvatar src="https://source.unsplash.com/300x300?person" alt="avatar" />
+                    <UAvatar
+                        src="https://source.unsplash.com/300x300?person"
+                        alt="avatar"
+                    />
                 </template>
 
                 <template #name-data="{ row }">
-                    <NuxtLink :to="`/employees/${row.id}`" class="hover:underline hover:text-blue-500">
+                    <NuxtLink
+                        :to="`/employees/${row.id}`"
+                        class="hover:underline hover:text-blue-500"
+                    >
                         <span>{{ row.name }}</span>
                     </NuxtLink>
                 </template>
 
                 <template #status-data="{ row }">
                     <div class="text-center">
-                        <UBadge :color="row.status === 'permanent'
-                            ? 'green'
-                            : row.status === 'probation'
-                                ? 'yellow'
-                                : 'red'
-                            " :label="row.status" />
+                        <UBadge
+                            :color="
+                                row.status === 'permanent'
+                                    ? 'green'
+                                    : row.status === 'probation'
+                                    ? 'yellow'
+                                    : 'red'
+                            "
+                            :label="row.status"
+                        />
                     </div>
                 </template>
 
                 <template #gender-data="{ row }">
                     <div class="text-center">
-                        <UIcon :name="row.gender === 'male'
-                            ? 'i-mdi-gender-male'
-                            : 'i-mdi-gender-female'
-                            " class="mx-auto rounded-full p-2" :class="row.gender === 'male'
-        ? 'bg-blue-500'
-        : 'bg-pink-500'
-        " />
+                        <UIcon
+                            :name="
+                                row.gender === 'male'
+                                    ? 'i-mdi-gender-male'
+                                    : 'i-mdi-gender-female'
+                            "
+                            class="mx-auto rounded-full p-2"
+                            :class="
+                                row.gender === 'male'
+                                    ? 'bg-blue-500'
+                                    : 'bg-pink-500'
+                            "
+                        />
                     </div>
                 </template>
 
                 <template #actions-data="{ row }">
                     <UDropdown :items="items(row)">
-                        <UButton color="gray" variant="ghost" icon="i-heroicons-ellipsis-horizontal-20-solid" />
+                        <UButton
+                            color="gray"
+                            variant="ghost"
+                            icon="i-heroicons-ellipsis-horizontal-20-solid"
+                        />
                     </UDropdown>
                 </template>
-
             </UTable>
         </div>
 
-        <div class="flex justify-end px-3 py-3.5 border-t border-gray-200 dark:border-gray-700">
-            <UPagination v-model="page" :page-count="pageCount" :total="employees.length" />
+        <div
+            class="flex justify-end px-3 py-3.5 border-t border-gray-200 dark:border-gray-700"
+        >
+            <UPagination
+                v-model="page"
+                :page-count="pageCount"
+                :total="employees.length"
+            />
         </div>
     </UCard>
 </template>
@@ -101,7 +181,6 @@
 const router = useRouter();
 
 const columns = [
-
     { key: "nip", label: "ID" },
     { key: "name", label: "Name", class: "min-w-[200px]" },
     { key: "gender", label: "Gender", class: "text-center" },
@@ -109,10 +188,7 @@ const columns = [
     { key: "status", label: "Status", class: "text-center" },
 ];
 
-const additionalColumns = [
-    { key: "image" },
-    { key: "actions" },
-];
+const additionalColumns = [{ key: "image" }, { key: "actions" }];
 
 // Filters
 const todoStatus = [
@@ -155,7 +231,6 @@ const { data: employees, pending } = await useLazyAsyncData<any[]>(
     {
         default: () => [],
         watch: [search, page, pageCount],
-
     }
 );
 
@@ -207,7 +282,6 @@ const items = (row: any) => [
         },
     ],
 ];
-
 </script>
 
 <style></style>
