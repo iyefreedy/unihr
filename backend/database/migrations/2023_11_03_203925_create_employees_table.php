@@ -23,8 +23,6 @@ return new class extends Migration
             $table->string('postal_code', 5);
             $table->string('city', 50);
             $table->string('province', 50);
-            $table->unsignedBigInteger('employable_id');
-            $table->string('employable_type');
             $table->softDeletes();
             $table->timestamps();
         });
