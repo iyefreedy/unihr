@@ -2,25 +2,43 @@
     <UCard>
         <template #header>
             <div class="flex items-center">
-                <UButton icon="i-mdi-arrow-left" class="mr-4" variant="ghost" @click="router.back()" />
+                <UButton
+                    icon="i-mdi-arrow-left"
+                    class="mr-4"
+                    variant="ghost"
+                    @click="router.back()"
+                />
                 <div>
                     <h1 class="md:text-xl">Employee</h1>
-                    <span class="text-xs text-slate-600 dark:text-slate-100 md:text-sm">Add new employee</span>
+                    <span
+                        class="text-xs text-slate-600 dark:text-slate-100 md:text-sm"
+                        >Add new employee</span
+                    >
                 </div>
             </div>
         </template>
 
         <section class="px-4">
-            <Stepper :steps="steps" :current-step="currentStep" @change="changeStep" />
+            <Stepper
+                :steps="steps"
+                :current-step="currentStep"
+                @change="changeStep"
+            />
 
             <UDivider class="mb-2" />
 
             <template v-if="currentStep === 0">
-                <EmployeesPersonalInformationForm :state="state.personalInformation" @submit="nextStep" />
+                <EmployeesPersonalInformationForm
+                    :state="state.personalInformation"
+                    @submit="nextStep"
+                />
             </template>
 
             <template v-else-if="currentStep === 1">
-                <EmployeesEmploymentInfomation :state="state.employmentInformation" @submit="nextStep" />
+                <EmployeesEmploymentInfomation
+                    :state="state.employmentInformation"
+                    @submit="nextStep"
+                />
             </template>
             <template v-else-if="currentStep === 2">
                 <h1>Education Infomation</h1>
