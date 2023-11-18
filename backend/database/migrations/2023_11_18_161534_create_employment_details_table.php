@@ -13,9 +13,17 @@ return new class extends Migration
     {
         Schema::create('employment_details', function (Blueprint $table) {
             $table->id();
+            $table->date('join_date');
+            $table->date('end_date')->nullable();
             $table->unsignedBigInteger('employable_id');
             $table->string('employable_type');
+            $table->unsignedBigInteger('grade_id');
+            $table->unsignedBigInteger('rank_id');
+            $table->unsignedBigInteger('status_id');
+            $table->unsignedBigInteger('schedule_id');
             $table->timestamps();
+
+            $table->unique(['employable_id', 'employable_type']);
         });
     }
 
