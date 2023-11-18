@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\Department;
-use App\Models\Employee;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,12 +10,9 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('lecturers', function (Blueprint $table) {
+        Schema::create('grades', function (Blueprint $table) {
             $table->id();
-            $table->string('registration_number', 10);
-            $table->foreignIdFor(Employee::class);
-            $table->foreignIdFor(Department::class);
-            // Other columns will be updated
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -27,6 +22,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('lecturers');
+        Schema::dropIfExists('grades');
     }
 };
