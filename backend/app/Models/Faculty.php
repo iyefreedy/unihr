@@ -10,6 +10,6 @@ class Faculty extends Model
 {
     public function employees(): MorphMany
     {
-        return $this->morphMany(Employee::class, "employable");
+        return $this->morphMany(EmploymentDetail::class, "employable");
     }
 }
