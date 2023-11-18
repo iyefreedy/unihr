@@ -9,35 +9,70 @@
             </div>
 
             <UFormGroup class="flex-[0_0_auto] w-full px-4 py-2" label="Photo">
-                <input ref="inputFile" type="file" class="hidden" accept="image/*" @change="change" />
+                <input
+                    ref="inputFile"
+                    type="file"
+                    class="hidden"
+                    name="photo"
+                    accept="image/*"
+                    @change="change"
+                />
                 <div class="flex items-center gap-x-3">
                     <template v-if="image">
                         <UAvatar :src="image" size="3xl" />
                     </template>
                     <template v-else>
-                        <svg class="h-20 w-20 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                            <path fill-rule="evenodd"
+                        <svg
+                            class="h-20 w-20 text-gray-300"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            aria-hidden="true"
+                        >
+                            <path
+                                fill-rule="evenodd"
                                 d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
-                                clip-rule="evenodd" />
+                                clip-rule="evenodd"
+                            />
                         </svg>
                     </template>
 
-                    <UButton type="button" label="Change" class="px-2.5 py-1.5 text-sm"
-                        @click="($refs.inputFile as HTMLInputElement).click()" />
+                    <UButton
+                        type="button"
+                        label="Change"
+                        class="px-2.5 py-1.5 text-sm"
+                        @click="($refs.inputFile as HTMLInputElement).click()"
+                    />
                 </div>
             </UFormGroup>
 
-            <UFormGroup label="Identity Number" name="nik" required class="flex-[0_0_auto] w-full px-4 py-2"
-                help="ID Number isi in your citizen ID Card">
-                <UInput v-model="state.identity_number" placeholder="3201654578982123" />
+            <UFormGroup
+                label="Identity Number"
+                name="identity_number"
+                required
+                class="flex-[0_0_auto] w-full px-4 py-2"
+                help="ID Number is in your citizen ID Card"
+            >
+                <UInput
+                    v-model="state.identity_number"
+                    placeholder="3201654578982123"
+                />
 
                 <template #error="{ error }">
                     <span class="text-xs">{{ error }}</span>
                 </template>
             </UFormGroup>
 
-            <UFormGroup label="Name" name="name" required class="flex-[0_0_auto] w-full px-4 py-2">
-                <UInput v-model="state.name" placeholder="John Doe" />
+            <UFormGroup
+                label="Name"
+                name="name"
+                required
+                class="flex-[0_0_auto] w-full px-4 py-2"
+            >
+                <UInput
+                    v-model="state.name"
+                    placeholder="John Doe"
+                    autocomplete="name"
+                />
 
                 <template #error="{ error }">
                     <span class="text-xs">{{ error }}</span>
@@ -46,16 +81,35 @@
 
             <!-- Row 2 -->
 
-            <UFormGroup label="Email" name="email" required class="flex-[0_0_auto] w-full px-4 py-2 md:w-1/2">
-                <UInput type="email" v-model="state.email" placeholder="john.doe@example.com" />
+            <UFormGroup
+                label="Email"
+                name="email"
+                required
+                class="flex-[0_0_auto] w-full px-4 py-2 md:w-1/2"
+            >
+                <UInput
+                    type="email"
+                    v-model="state.email"
+                    placeholder="john.doe@example.com"
+                    autocomplete="email"
+                />
 
                 <template #error="{ error }">
                     <span class="text-xs">{{ error }}</span>
                 </template>
             </UFormGroup>
 
-            <UFormGroup label="Phone" name="phone" class="flex-[0_0_auto] w-full px-4 py-2 md:w-1/2">
-                <UInput type="phone" v-model="state.phone" placeholder="E.g: +622183616766" />
+            <UFormGroup
+                label="Phone"
+                name="phone"
+                class="flex-[0_0_auto] w-full px-4 py-2 md:w-1/2"
+            >
+                <UInput
+                    type="phone"
+                    v-model="state.phone"
+                    placeholder="E.g: +622183616766"
+                    autocomplete="tel"
+                />
 
                 <template #error="{ error }">
                     <span class="text-xs">{{ error }}</span>
@@ -63,7 +117,12 @@
             </UFormGroup>
 
             <!-- Row 4 -->
-            <UFormGroup label="Birth Date" name="birth_date" required class="flex-[0_0_auto] w-full px-4 py-2 md:w-1/2">
+            <UFormGroup
+                label="Birth Date"
+                name="birth_date"
+                required
+                class="flex-[0_0_auto] w-full px-4 py-2 md:w-1/2"
+            >
                 <UInput type="date" v-model="state.birth_date" />
 
                 <template #error="{ error }">
@@ -71,7 +130,11 @@
                 </template>
             </UFormGroup>
 
-            <UFormGroup label="Birth place" name="birth_place" class="flex-[0_0_auto] w-full px-4 py-2 md:w-1/2">
+            <UFormGroup
+                label="Birth place"
+                name="birth_place"
+                class="flex-[0_0_auto] w-full px-4 py-2 md:w-1/2"
+            >
                 <UInput v-model="state.birth_place" placeholder="E.g: Bogor" />
 
                 <template #error="{ error }">
@@ -81,9 +144,20 @@
 
             <!-- Row 5 -->
 
-            <UFormGroup label="Gender" name="gender" class="flex-[0_0_auto] w-full px-4 py-2 md:w-1/2">
-                <URadio v-for="option in genderOptions" :key="option.value" v-model="state.gender" v-bind="option"
-                    class="inline-flex first:mr-8">
+            <UFormGroup
+                label="Gender"
+                name="gender"
+                required
+                class="flex-[0_0_auto] w-full px-4 py-2 md:w-1/2"
+            >
+                <URadio
+                    v-for="option in genderOptions"
+                    :key="option.value"
+                    v-model="state.gender"
+                    v-bind="option"
+                    class="inline-flex first:mr-8"
+                    autocomplete="sex"
+                >
                     {{ option.label }}
                 </URadio>
 
@@ -92,9 +166,17 @@
                 </template>
             </UFormGroup>
 
-            <UFormGroup label="Marital status" name="marital_status" required
-                class="flex-[0_0_auto] w-full px-4 py-2 md:w-1/2">
-                <USelect placeholder="Select status" :options="maritalStatusOptions" v-model="state.marital_status" />
+            <UFormGroup
+                label="Marital status"
+                name="marital_status"
+                required
+                class="flex-[0_0_auto] w-full px-4 py-2 md:w-1/2"
+            >
+                <USelect
+                    placeholder="Select status"
+                    :options="maritalStatusOptions"
+                    v-model="state.marital_status"
+                />
 
                 <template #error="{ error }">
                     <span class="text-xs">{{ error }}</span>
@@ -103,43 +185,105 @@
 
             <!-- Row 6 -->
 
-            <UFormGroup label="Blood type" name="blood_type" class="flex-[0_0_auto] w-full px-4 py-2 md:w-1/2">
-                <USelect placeholder="Select blood type" :options="['A', 'B', 'AB', 'O']" v-model="state.blood_type" />
+            <UFormGroup
+                label="Blood type"
+                name="blood_type"
+                class="flex-[0_0_auto] w-full px-4 py-2 md:w-1/2"
+            >
+                <USelect
+                    placeholder="Select blood type"
+                    :options="['A', 'B', 'AB', 'O']"
+                    v-model="state.blood_type"
+                />
 
                 <template #error="{ error }">
                     <span class="text-xs">{{ error }}</span>
                 </template>
             </UFormGroup>
 
-            <UFormGroup label="Religion" required class="flex-[0_0_auto] w-full px-4 py-2 md:w-1/2" name="religion">
-                <USelect placeholder="Select religion" :options="religionOptions" v-model="state.religion" />
+            <UFormGroup
+                label="Religion"
+                required
+                class="flex-[0_0_auto] w-full px-4 py-2 md:w-1/2"
+                name="religion"
+            >
+                <USelect
+                    placeholder="Select religion"
+                    :options="religionOptions"
+                    v-model="state.religion"
+                />
 
                 <template #error="{ error }">
                     <span class="text-xs">{{ error }}</span>
                 </template>
             </UFormGroup>
 
-            <UFormGroup label="Address" required class="flex-[0_0_auto] w-full px-4 py-2 md:w-1/2" name="address">
-                <UTextarea v-model="state.address" />
+            <UFormGroup
+                label="Address"
+                required
+                class="flex-[0_0_auto] w-full px-4 py-2 md:w-1/2"
+                name="address"
+            >
+                <UTextarea
+                    v-model="state.address"
+                    autocomplete="street-address"
+                />
             </UFormGroup>
 
-            <UFormGroup label="Province" required class="flex-[0_0_auto] w-full px-4 py-2 md:w-1/2" name="province">
-                <USelectMenu searchable :options="provinces" v-model="state.province" option-attribute="name"
-                    placeholder="Select province" @click="execute" @change="state.city = undefined" />
+            <UFormGroup
+                label="Province"
+                required
+                class="flex-[0_0_auto] w-full px-4 py-2 md:w-1/2"
+                name="province"
+            >
+                <USelectMenu
+                    searchable
+                    :options="provinces"
+                    v-model="state.province"
+                    option-attribute="name"
+                    placeholder="Select province"
+                    @click="execute"
+                    @change="state.city = undefined"
+                />
             </UFormGroup>
 
-            <UFormGroup label="City" required class="flex-[0_0_auto] w-full px-4 py-2 md:w-1/2" name="city">
-                <USelectMenu searchable :options="regencies" v-model="state.city" option-attribute="name"
-                    value-attribute="name" placeholder="Select city" :disabled="state.province === undefined" />
+            <UFormGroup
+                label="City"
+                required
+                class="flex-[0_0_auto] w-full px-4 py-2 md:w-1/2"
+                name="city"
+            >
+                <USelectMenu
+                    searchable
+                    :options="regencies"
+                    v-model="state.city"
+                    option-attribute="name"
+                    value-attribute="name"
+                    placeholder="Select city"
+                    :disabled="state.province === undefined"
+                />
             </UFormGroup>
 
-            <UFormGroup label="Postal code" class="flex-[0_0_auto] w-full px-4 py-2 md:w-1/2" name="postal_code">
-                <UInput v-model="state.postal_code" />
+            <UFormGroup
+                label="Postal code"
+                class="flex-[0_0_auto] w-full px-4 py-2 md:w-1/2"
+                name="postal_code"
+            >
+                <UInput
+                    v-model="state.postal_code"
+                    autocomplete="postal-code"
+                />
             </UFormGroup>
         </section>
 
         <div class="w-full py-2 mt-4">
-            <UButton type="submit" label="Next" block icon="i-mdi-arrow-right-bold-circle" trailing />
+            <UButton
+                type="submit"
+                label="Next"
+                block
+                icon="i-mdi-arrow-right-bold-circle"
+                trailing
+            />
         </div>
     </UForm>
 </template>
@@ -148,7 +292,10 @@
 import Joi from "joi";
 
 const schema = Joi.object<PersonalDetail>({
-    nik: Joi.string().length(16).required().length(16).label("Identity Number"),
+    identity_number: Joi.string()
+        .required()
+        .length(16)
+        .label("Identity Number"),
     name: Joi.string().required().label("Name"),
     email: Joi.string().email({ tlds: false }).required().label("Email"),
     phone: Joi.string(),
@@ -162,6 +309,7 @@ const schema = Joi.object<PersonalDetail>({
     postal_code: Joi.string(),
     province: Joi.object(),
     city: Joi.string(),
+    photo: Joi.string(),
 });
 
 const props = defineProps<{ state: PersonalDetail }>();
@@ -170,7 +318,6 @@ const emit = defineEmits<{ submit: [] }>();
 const submit = () => {
     emit("submit");
 };
-
 
 const image = ref<string | undefined>(undefined);
 
@@ -189,7 +336,7 @@ const change = (event: Event) => {
         };
 
         reader.readAsDataURL(fileList[0]);
-        props.state.photo = fileList[0];
+        props.state.photo = fileList[0].name;
     }
 };
 
@@ -198,23 +345,25 @@ const { data: provinces, execute } = await useAsyncData<any[]>(
     () => $fetch("/provinces.json"),
     {
         default: () => [],
-
     }
 );
 
-const { data: regencies, pending, error, refresh } = await useAsyncData<any[]>(
-    'regencies',
-    () => $fetch('/regencies.json'),
-    {
-        default: () => [],
-        watch: [() => props.state.province],
-        transform: (regencies) => {
-            const province = props.state.province;
+const {
+    data: regencies,
+    pending,
+    error,
+    refresh,
+} = await useAsyncData<any[]>("regencies", () => $fetch("/regencies.json"), {
+    default: () => [],
+    watch: [() => props.state.province],
+    transform: (regencies) => {
+        const province = props.state.province;
 
-            return regencies.filter((regency) => regency.province_id === province.id)
-        }
-    }
-);
+        return regencies.filter(
+            (regency) => regency.province_id === province.id
+        );
+    },
+});
 
 const genderOptions = [
     {

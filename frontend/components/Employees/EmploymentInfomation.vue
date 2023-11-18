@@ -48,13 +48,45 @@
                 required
             >
                 <USelect
-                    v-model="state.class"
-                    :options="classOptions"
+                    v-model="state.rank"
+                    :options="rankOptions"
                     :disabled="!state.grade"
                     placeholder="Select class"
                 />
             </UFormGroup>
+            <UFormGroup
+                label="Position"
+                name="position"
+                class="flex-[0_0_auto] w-full px-4 py-2"
+            >
+                <USelect
+                    v-model="state.position"
+                    :options="positionOptions"
+                    placeholder="Select position"
+                />
+            </UFormGroup>
+            <UFormGroup
+                label="Level"
+                name="level"
+                class="flex-[0_0_auto] w-full px-4 py-2"
+            >
+                <USelect
+                    v-model="state.level"
+                    :options="levelOptions"
+                    placeholder="Select level"
+                />
+            </UFormGroup>
         </section>
+
+        <div class="w-full py-2 mt-4">
+            <UButton
+                type="submit"
+                label="Next"
+                block
+                icon="i-mdi-arrow-right-bold-circle"
+                trailing
+            />
+        </div>
     </UForm>
 </template>
 
@@ -65,7 +97,7 @@ interface EmploymentInformationProps {
     employee_id_number: string | undefined;
     status: string | undefined;
     grade: string | undefined;
-    class: string | undefined;
+    rank: string | undefined;
     join_date: string | undefined;
     organization: string | undefined;
     position: string | undefined;
@@ -78,16 +110,16 @@ const emit = defineEmits<{ submit: [] }>();
 const schema = Joi.object<EmploymentInformationProps>({
     employee_id_number: Joi.string().length(16).required().label("Employee ID"),
     grade: Joi.string().required(),
-    class: Joi.string().required(),
+    rank: Joi.string().required(),
     join_date: Joi.date().required(),
     level: Joi.string().required(),
     organization: Joi.string().required(),
-    position: Joi.string().required(),
+    position: Joi.string(),
     status: Joi.string().required(),
 });
 
 const reset = () => {
-    props.state.class = undefined;
+    props.state.rank = undefined;
 };
 
 const submit = () => {
@@ -102,7 +134,7 @@ const gradeOptions = [
     { label: "Gol. IV", value: "gol-iv" },
 ];
 
-const classOptions = computed(() => {
+const rankOptions = computed(() => {
     const grade = props.state.grade;
     switch (grade) {
         case "gol-i":
@@ -117,6 +149,36 @@ const classOptions = computed(() => {
             return [""];
     }
 });
+
+const positionOptions = [
+    {
+        label: "Project Manager",
+        value: "pm",
+    },
+    {
+        label: "Web Developer",
+        value: "wd",
+    },
+    {
+        label: "Mobile programmer",
+        value: "programmer",
+    },
+];
+
+const levelOptions = [
+    {
+        label: "Director",
+        value: "director",
+    },
+    {
+        label: "Deputy Director",
+        value: "deputy-director",
+    },
+    {
+        label: "Head of division",
+        value: "hod",
+    },
+];
 </script>
 
 <style></style>
