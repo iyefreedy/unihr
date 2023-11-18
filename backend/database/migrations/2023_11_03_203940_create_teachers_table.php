@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('teachers', function (Blueprint $table) {
             $table->id();
-            $table->string('nidn');
+            $table->string('registration_number',10);
             $table->foreignIdFor(Employee::class);
             $table->foreignIdFor(Department::class);
+            // Other columns will be updated
             $table->timestamps();
         });
     }
