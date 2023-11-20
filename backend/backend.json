@@ -1,0 +1,245 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "UniHR Backend API",
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "https://backend.test/api"
+        }
+    ],
+    "paths": {
+        "/employees": {
+            "get": {
+                "summary": "Get all employees",
+                "description": "Get all employees from database",
+                "parameters": [
+                    {
+                        "name": "status",
+                        "description": "Get employees by employement status",
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "nullable": true,
+                            "minLength": 1,
+                            "maxLength": 10
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success get all employees",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "identity_number": {
+                                                "type": "string"
+                                            },
+                                            "name": {
+                                                "type": "string",
+                                                "minLength": 5,
+                                                "nullable": false
+                                            },
+                                            "gender": {
+                                                "type": "string",
+                                                "enum": [
+                                                    "male",
+                                                    "female"
+                                                ],
+                                                "nullable": false
+                                            },
+                                            "birth_date": {
+                                                "type": "string"
+                                            },
+                                            "birth_place": {
+                                                "type": "string"
+                                            },
+                                            "email": {
+                                                "type": "string"
+                                            },
+                                            "phone": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                },
+                                "examples": {
+                                    "success": {
+                                        "value": [
+                                            {
+                                                "identity_number": "32012132104980010",
+                                                "name": "Muhammad Quraisy",
+                                                "gender": "male",
+                                                "birth_date": "1998-04-21",
+                                                "birth_place": "Bogor",
+                                                "email": "example@test.com",
+                                                "phone": "02183616766"
+                                            },
+                                            {
+                                                "identity_number": "32012132104980010",
+                                                "name": "Iye Fredickson",
+                                                "gender": "male",
+                                                "birth_date": "1998-04-21",
+                                                "birth_place": "Bogor",
+                                                "email": "example@test.com",
+                                                "phone": "02183616766"
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create new employee",
+                "description": "Create new employee to database",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "identity_number": {
+                                        "type": "string"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "minLength": 5,
+                                        "nullable": false
+                                    },
+                                    "gender": {
+                                        "type": "string",
+                                        "enum": [
+                                            "male",
+                                            "female"
+                                        ],
+                                        "nullable": false
+                                    },
+                                    "birth_date": {
+                                        "type": "string"
+                                    },
+                                    "birth_place": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "phone": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "identity_number": "32012132104980010",
+                                "name": "Muhammad Quraisy",
+                                "gender": "male",
+                                "birth_date": "1998-04-21",
+                                "birth_place": "Bogor",
+                                "email": "example@test.com",
+                                "phone": "02183616766"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/employees/{id}": {
+            "get": {
+                "responses": {},
+                "parameters": [
+                    {
+                        "name": "id",
+                        "description": "Get employees by employeeId",
+                        "in": "path"
+                    }
+                ]
+            },
+            "put": {
+                "parameters": [
+                    {
+                        "name": "id",
+                        "description": "Employee id for update",
+                        "in": "path"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "identity_number": {
+                                        "type": "string"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "minLength": 5,
+                                        "nullable": false
+                                    },
+                                    "gender": {
+                                        "type": "string",
+                                        "enum": [
+                                            "male",
+                                            "female"
+                                        ],
+                                        "nullable": false
+                                    },
+                                    "birth_date": {
+                                        "type": "string"
+                                    },
+                                    "birth_place": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "phone": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "identity_number": "32012132104980010",
+                                "name": "Muhammad Quraisy",
+                                "gender": "male",
+                                "birth_date": "1998-04-21",
+                                "birth_place": "Bogor",
+                                "email": "example@test.com",
+                                "phone": "02183616766"
+                            }
+                        }
+                    }
+                },
+                "responses": {}
+            },
+            "delete": {
+                "parameters": [
+                    {
+                        "name": "id",
+                        "description": "Employee id for delete",
+                        "in": "path"
+                    }
+                ]
+            }
+        },
+        "/organizations": {
+            "get": {},
+            "post": {}
+        }
+    }
+}
