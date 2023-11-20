@@ -1,6 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     devtools: { enabled: true },
+    runtimeConfig: {
+        public: {
+            backendUrl: "",
+            frontendUrl: "",
+        },
+    },
     typescript: {
         shim: false,
     },
@@ -10,9 +16,8 @@ export default defineNuxtConfig({
     colorMode: {
         preference: "light",
     },
-
     modules: ["@nuxt/ui"],
     imports: {
-        dirs: ["./types"],
+        dirs: ["./types", "./utils"],
     },
 });
