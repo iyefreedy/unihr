@@ -93,21 +93,10 @@
 <script lang="ts" setup>
 import Joi from "joi";
 
-interface EmploymentInformationProps {
-    employee_id_number: string | undefined;
-    status: string | undefined;
-    grade: string | undefined;
-    rank: string | undefined;
-    join_date: string | undefined;
-    organization: string | undefined;
-    position: string | undefined;
-    level: string | undefined;
-}
-
-const props = defineProps<{ state: EmploymentInformationProps }>();
+const props = defineProps<{ state: EmploymentDetail }>();
 const emit = defineEmits<{ submit: [] }>();
 
-const schema = Joi.object<EmploymentInformationProps>({
+const schema = Joi.object<EmploymentDetail>({
     employee_id_number: Joi.string().length(16).required().label("Employee ID"),
     grade: Joi.string().required(),
     rank: Joi.string().required(),
