@@ -21,7 +21,8 @@ class EmployeeFactory extends Factory
         $gender = $faker->randomElement([Person::GENDER_MALE, Person::GENDER_FEMALE]);
 
         return [
-            'identity_number' => $faker->nik(),
+            'identity_number' => $faker->nik($gender),
+            'name' => $faker->name($gender),
             'gender' => $gender,
             'birth_date' => $faker->date('Y-m-d', '2004-12-31'),
             'birth_place' => $faker->city(),
