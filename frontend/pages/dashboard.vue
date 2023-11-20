@@ -68,6 +68,7 @@
 </template>
 
 <script lang="ts" setup>
+definePageMeta({ middleware: ["auth"] });
 const chartBarData = {
     labels: ["January", "February", "March"],
     datasets: [

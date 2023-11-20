@@ -28,15 +28,15 @@
             <UDivider class="mb-2" />
 
             <template v-if="currentStep === 0">
-                <EmployeesPersonalInformationForm
-                    :state="state.personalInformation"
+                <EmployeesPersonalDetailForm
+                    :state="state.personalDetail"
                     @submit="nextStep"
                 />
             </template>
 
             <template v-else-if="currentStep === 1">
-                <EmployeesEmploymentInfomation
-                    :state="state.employmentInformation"
+                <EmployeesEmploymentDetailForm
+                    :state="state.employmentDetail"
                     @submit="nextStep"
                 />
             </template>
@@ -53,7 +53,7 @@
 <script lang="ts" setup>
 const router = useRouter();
 
-const personalInformation = reactive<PersonalDetail>({
+const personalDetail = reactive<PersonalDetail>({
     identity_number: undefined,
     name: undefined,
     email: undefined,
@@ -71,7 +71,7 @@ const personalInformation = reactive<PersonalDetail>({
     province: undefined,
 });
 
-const employmentInformation = reactive({
+const employmentDetail = reactive({
     employee_id_number: undefined,
     join_date: undefined,
     level: undefined,
@@ -79,12 +79,12 @@ const employmentInformation = reactive({
     position: undefined,
     status: undefined,
     grade: undefined,
-    class: undefined,
+    rank: undefined,
 });
 
 const state = reactive({
-    personalInformation,
-    employmentInformation,
+    personalDetail: personalDetail,
+    employmentDetail: employmentDetail,
 });
 
 const steps = [
