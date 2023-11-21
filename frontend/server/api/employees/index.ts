@@ -1,6 +1,4 @@
-import { number } from "joi";
-
-export default defineEventHandler((event) => {
+export default defineEventHandler(async (event) => {
     const employees = [
         {
             id: 1,
@@ -74,20 +72,82 @@ export default defineEventHandler((event) => {
             gender: "female",
             status: "leave",
         },
+        {
+            id: 10,
+            nip: "10.0.0.0031",
+            name: "Ade Jamal",
+            organization: "Pusat Komputer dan Inovasi Digital",
+            gender: "male",
+            status: "permanent",
+        },
+        {
+            id: 11,
+            nip: "10.0.0.0031",
+            name: "Dini Priatini",
+            organization: "Sekretariat Universitas",
+            gender: "female",
+            status: "permanent",
+        },
+        {
+            id: 12,
+            nip: "10.0.0.0031",
+            name: "Dini Priatini",
+            organization: "Sekretariat Universitas",
+            gender: "female",
+            status: "permanent",
+        },
+        {
+            id: 13,
+            nip: "10.0.0.0031",
+            name: "Lia Nuryati",
+            organization: "Sekretariat Universitas",
+            gender: "female",
+            status: "permanent",
+        },
+        {
+            id: 14,
+            nip: "10.0.0.0031",
+            name: "Reni Setiyani",
+            organization: "Fakultas Hukum",
+            gender: "female",
+            status: "permanent",
+        },
+        {
+            id: 15,
+            nip: "10.0.0.0031",
+            name: "Mudhika Nur Romadhon",
+            organization: "Sekretariat Universitas",
+            gender: "male",
+            status: "permanent",
+        },
+        {
+            id: 16,
+            nip: "10.0.0.0031",
+            name: "Irman",
+            organization: "Pusat Kajian dan Penerapan Etika",
+            gender: "male",
+            status: "permanent",
+        },
+        {
+            id: 17,
+            nip: "10.0.0.0031",
+            name: "Aris Maulana",
+            organization: "Sekretariat Universitas",
+            gender: "male",
+            status: "permanent",
+        },
     ];
 
-    const {
-        q,
-        _limit,
-        _page,
-    }: {
-        q: string | undefined;
-        _limit: number ;
-        _page: number | undefined;
-    } = getQuery(event);
+    const { q }: { q: string | undefined } = getQuery(event);
 
-    const offset = (_limit ?? 0) * (_page ?? 0) - _limit;
-    console.log(q, _limit, _page, offset);
+    if (q) {
+        return employees.filter((employee) => {
+            const { name, nip } = employee;
+            return Object.values({ name, nip }).some((value) => {
+                return String(value).toLowerCase().includes(q.toString());
+            });
+        });
+    }
 
-    return [...employees].slice(offset, _limit);
+    return employees;
 });
