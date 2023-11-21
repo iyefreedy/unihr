@@ -42,11 +42,6 @@
 <script lang="ts" setup>
 import Joi from "joi";
 
-definePageMeta({
-    layout: "simple",
-    middleware: ["guest"],
-});
-
 const router = useRouter();
 const route = useRoute();
 
