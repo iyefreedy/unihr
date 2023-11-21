@@ -46,6 +46,7 @@
                 <USelect
                     v-model="pageCount"
                     :options="[5, 10, 25, 50]"
+                    @change="page = 1"
                     class="me-2 w-20"
                     size="xs"
                 />
@@ -95,7 +96,7 @@
 
         <div>
             <UTable
-                :rows="employees"
+                :rows="rows"
                 :columns="[
                     additionalColumns[0],
                     ...columnsTable,
@@ -165,15 +166,36 @@
             </UTable>
         </div>
 
-        <div
-            class="flex justify-end px-3 py-3.5 border-t border-gray-200 dark:border-gray-700"
-        >
-            <UPagination
-                v-model="page"
-                :page-count="pageCount"
-                :total="employees.length"
-            />
-        </div>
+        <template #footer>
+            <div class="flex flex-wrap justify-between items-center">
+                <div>
+                    <span class="text-sm leading-5">
+                        Showing
+                        <span class="font-medium">{{ pageFrom }}</span>
+                        to
+                        <span class="font-medium">{{ pageTo }}</span>
+                        of
+                        <span class="font-medium">{{ pageTotal }}</span>
+                        results
+                    </span>
+                </div>
+
+                <UPagination
+                    v-model="page"
+                    :page-count="pageCount"
+                    :total="pageTotal"
+                    :ui="{
+                        wrapper: 'flex items-center gap-1',
+                        rounded: '!rounded-full min-w-[32px] justify-center',
+                        default: {
+                            activeButton: {
+                                variant: 'outline',
+                            },
+                        },
+                    }"
+                />
+            </div>
+        </template>
     </UCard>
 </template>
 
@@ -181,8 +203,8 @@
 const router = useRouter();
 
 const columns = [
-    { key: "nip", label: "ID" },
     { key: "name", label: "Name", class: "min-w-[200px]" },
+    { key: "nip", label: "ID" },
     { key: "gender", label: "Gender", class: "text-center" },
     { key: "organization", label: "Organization" },
     { key: "status", label: "Status", class: "text-center" },
@@ -199,7 +221,7 @@ const todoStatus = [
     },
     {
         key: "contract",
-        label: "Contract",
+        label: "contract",
         value: false,
     },
 ];
@@ -212,27 +234,46 @@ const page = ref(1);
 const pageCount = ref(5);
 const selected = ref([]);
 
+const pageTotal = computed(() => employees.value.length); // This value should be dynamic coming from the API
+const pageFrom = computed(() => (page.value - 1) * pageCount.value + 1);
+const pageTo = computed(() =>
+    Math.min(page.value * pageCount.value, pageTotal.value)
+);
 const resetFilters = () => {
     search.value = "";
     selectedStatus.value = [];
 };
 
 const search = useDebounceRef("", 500, false);
-const { data: employees, pending } = await useLazyAsyncData<any[]>(
+const { data: employees, pending } = await useLazyAsyncData<
+    {
+        id: number;
+        nip: string;
+        name: string;
+        organization: string;
+        gender: string;
+        status: string;
+    }[]
+>(
     "employees",
     () =>
         ($fetch as any)("/api/employees", {
             query: {
                 q: search.value,
-                _page: page.value,
-                _limit: pageCount.value,
             },
         }),
     {
         default: () => [],
-        watch: [search, page, pageCount],
+        watch: [search],
     }
 );
+
+const rows = computed(() => {
+    return employees.value.slice(
+        (page.value - 1) * pageCount.value,
+        page.value * pageCount.value
+    );
+});
 
 // Actions
 const actions = [
@@ -255,9 +296,9 @@ const actions = [
 const items = (row: any) => [
     [
         {
-            label: "Assign as a teacher",
+            label: "Assign as a lecturer",
             icon: "i-mdi-account-school",
-            click: () => router.push(`/teachers/create?employee_id=${row.id}`),
+            click: () => router.push(`/lecturer/create?employee_id=${row.id}`),
         },
     ],
     [
