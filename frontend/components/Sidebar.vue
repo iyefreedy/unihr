@@ -13,11 +13,7 @@
                 </li>
 
                 <li>
-                    <NuxtLink
-                        to="/my-team"
-                        href="#"
-                        class="flex items-center p-1"
-                    >
+                    <NuxtLink to="/my-team" class="flex items-center p-1">
                         <UIcon name="i-mdi-account-group" />
                         <span class="ml-2">My Team</span>
                     </NuxtLink>

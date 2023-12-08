@@ -112,6 +112,7 @@ const reset = () => {
 };
 
 const submit = () => {
+    console.log("Submitted");
     emit("submit");
 };
 

@@ -97,8 +97,8 @@ const steps = [
         icon: "i-mdi-briefcase",
     },
     {
-        label: "Job Information",
-        icon: "i-mdi-account-tie",
+        label: "Payroll",
+        icon: "i-mdi-cash-multiple",
     },
     {
         label: "Family Information",

@@ -18,6 +18,9 @@ export default defineNuxtConfig({
     },
     modules: ["@nuxt/ui"],
     imports: {
-        dirs: ["./types", "./utils"],
+        dirs: ["./types"],
+    },
+    experimental: {
+        asyncContext: true,
     },
 });

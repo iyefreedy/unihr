@@ -97,27 +97,27 @@
         <div>
             <UTable
                 :rows="rows"
-                :columns="[
-                    additionalColumns[0],
-                    ...columnsTable,
-                    additionalColumns[1],
-                ]"
+                :columns="[...columnsTable, additionalColumns[1]]"
                 :loading="pending"
                 v-model="selected"
+                @contextmenu.prevent="contextMenuHandler"
+                :ui="{
+                    tr: {
+                        base: 'transition-colors duration-200 hover:bg-gray-200 hover:dark:bg-gray-800 context-menu',
+                    },
+                }"
             >
-                <template #image-data>
-                    <UAvatar
-                        src="https://source.unsplash.com/300x300?person"
-                        alt="avatar"
-                    />
-                </template>
-
                 <template #name-data="{ row }">
                     <NuxtLink
                         :to="`/employees/${row.id}`"
-                        class="hover:underline hover:text-blue-500"
+                        @contextmenu.prevent="contextMenuHandler"
+                        class="flex items-center hover:underline hover:text-blue-500"
                     >
-                        <span>{{ row.name }}</span>
+                        <UAvatar
+                            src="https://source.unsplash.com/300x300?person"
+                            alt="avatar"
+                        />
+                        <span class="ml-3">{{ row.name }}</span>
                     </NuxtLink>
                 </template>
 
@@ -158,7 +158,8 @@
                     <UDropdown :items="items(row)">
                         <UButton
                             color="gray"
-                            variant="ghost"
+                            :ui="{ rounded: 'rounded-full' }"
+                            variant="solid"
                             icon="i-heroicons-ellipsis-horizontal-20-solid"
                         />
                     </UDropdown>
@@ -323,6 +324,15 @@ const items = (row: any) => [
         },
     ],
 ];
+
+const contextMenuHandler = (e) => {
+    console.log(e);
+};
+
+onMounted(() => {
+    const contextMenuEl = document.querySelectorAll(".context-menu");
+    // contextMenuEl.forEach((ctx) => console.log(ctx));
+});
 </script>
 
 <style></style>

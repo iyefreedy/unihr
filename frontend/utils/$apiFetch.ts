@@ -1,3 +1,6 @@
+import { $fetch, FetchError } from "ofetch";
+import { parseCookies } from "h3";
+
 const CSRF_COOKIE = "XSRF-TOKEN";
 const CSRF_HEADER = "X-XSRF-TOKEN";
 

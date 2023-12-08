@@ -18,35 +18,37 @@
 
         <ul class="flex items-center ml-auto gap-2">
             <li class="relative">
-                <UButton
-                    id="notificationMenu"
-                    icon="i-mdi-bell"
-                    variant="ghost"
-                    :ui="{ rounded: 'rounded-full' }"
-                    @click="notificationOpen = !notificationOpen"
-                />
+                <UChip inset color="red" size="2xl" text="2">
+                    <UButton
+                        id="notificationMenu"
+                        icon="i-mdi-bell"
+                        variant="ghost"
+                        :ui="{ rounded: 'rounded-full' }"
+                        @click="notificationOpen = !notificationOpen"
+                    />
+                </UChip>
 
                 <Transition>
                     <div
                         v-if="notificationOpen"
-                        class="absolute top-10 right-0 z-20 group min-w-[240px]"
+                        class="absolute top-10 right-0 z-20 group min-w-[300px]"
                     >
                         <div
-                            class="p-4 bg-white shadow-lg rounded-md ring-1 ring-gray-200 dark:bg-gray-900 dark:ring-gray-800"
+                            class="py-4 px-1.5 bg-white shadow-lg rounded-md ring-1 ring-gray-200 dark:bg-gray-900 dark:ring-gray-800"
                         >
-                            <div class="grid grid-cols-3 gap-4">
-                                <template v-for="item in adminItems">
+                            <div class="">
+                                <template v-for="item in notificationItems">
                                     <div
-                                        class="flex flex-col items-center justify-center"
+                                        class="cursor-pointer h-12 rounded-lg p-2 overflow-clip hover:bg-gray-200"
                                     >
-                                        <UButton
-                                            :icon="item.icon"
-                                            size="lg"
-                                            :to="item.to"
-                                        />
-                                        <span class="text-[10px]">{{
-                                            item.label
-                                        }}</span>
+                                        <h1 class="text-[12px]">
+                                            {{ item.title }}
+                                        </h1>
+                                        <p
+                                            class="text-[9px] text-slate-600 text-ellipsis"
+                                        >
+                                            {{ item.message }}
+                                        </p>
                                     </div>
                                 </template>
                             </div>
@@ -285,6 +287,18 @@ const adminItems = [
     {
         label: "Submission",
         icon: "i-mdi-account-file",
+    },
+];
+
+const notificationItems = [
+    {
+        title: "Approval request",
+        message: "John was request to take leave.",
+    },
+    {
+        title: "Cutoff Time",
+        message:
+            "Current cut-off time will end in few days. Please put new cut-off periode",
     },
 ];
 </script>
